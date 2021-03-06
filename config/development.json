@@ -1,0 +1,5 @@
+{
+    "database": {
+        "mongoDatabaseLocal" : "zabuni_mongoLocal"
+    }
+}

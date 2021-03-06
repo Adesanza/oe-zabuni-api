@@ -1,0 +1,6 @@
+{
+    "database": {
+        "mongoDatabaseAtlas" : "zabuni_mongoAtlas",
+        "mongoDatabaseLocal" : "zabuni_mongoLocal"
+    }
+}
