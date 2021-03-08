@@ -18,11 +18,21 @@ require("./db/db-connect");
 
 const app = express();
 
+// --------------------------
+
+// route middlewares
+app.use(express.json())
+app.use('/',require("./routes/user-route"));
+
+// --------------------------
+
+
 //USE WHATEVER PORT IS AVAILABLE OR 5000
 const port = process.env.PORT || 5000;
 
 // FOR ERROR HANDLING
 app.use((err,req,res,next) => {
+    console.log("hiiiiii")
     res.status(err.status || 500);
     res.json({
         message: err.message,

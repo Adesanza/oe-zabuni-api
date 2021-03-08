@@ -2,32 +2,32 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
     first_name: {
-        type: string,
+        type: String,
         required: true
     },
     last_name: {
-        type: string,
+        type: String,
         required: true
     },
     company: {
-        type: string,
+        type: String,
         required: true
     },
     email: {
-        type: string,
+        type: String,
         required: true
     },
     password: {
-        type: string,
+        type: String,
         required: true
     },
     role: {
-        type: string,
+        type: String,
         enum: ['admin','marketing','technical','operations','finance'],
         required: true
     },
     is_admin: {
-        type: boolean,
+        type: Boolean,
         default: false
     }
 
