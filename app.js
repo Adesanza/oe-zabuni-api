@@ -1,6 +1,7 @@
 //load information/secrets in the .env file so that we can access it with the config npm package
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 
 // --------------------------
 
@@ -21,8 +22,9 @@ const app = express();
 // --------------------------
 
 // route middlewares
-app.use(express.json())
-app.use('/',require("./routes/user-route"));
+app.use(cors());
+app.use(express.json());
+app.use('/user',require("./routes/user-route"));
 
 // --------------------------
 
@@ -32,7 +34,6 @@ const port = process.env.PORT || 5000;
 
 // FOR ERROR HANDLING
 app.use((err,req,res,next) => {
-    console.log("hiiiiii")
     res.status(err.status || 500);
     res.json({
         message: err.message,

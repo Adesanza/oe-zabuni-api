@@ -17,6 +17,20 @@ router
                 next(error)
             }
         })
+router
+    .route("/login")
+    .post(async(req,res,next) => {
+        try {
+            const user = await User.findOne({email: req.body.email,password: req.body.password}).select('-password');
+            if(user){
+                return res.json({data: user});
+            }
+            return res.json({message: "Invalid email or password"});
+        } catch (error) {
+            // console.log(error);
+            next(error);
+        }
+    })        
 
 
 
