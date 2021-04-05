@@ -25,6 +25,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/user',require("./routes/user-route"));
+app.use('/billboard',require("./routes/billboard-route"));
 
 // --------------------------
 
