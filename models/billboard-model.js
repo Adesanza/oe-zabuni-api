@@ -66,13 +66,13 @@ const billboardSchema = new mongoose.Schema({
             'fct',
             'abia',
             'adamawa',
-            'akwa ibom',
+            'akwa_ibom',
             'anambra',
             'bauchi',
             'bayelsa',
             'benue',
             'borno',
-            'cross river',
+            'cross_river',
             'delta',
             'ebonyi',
             'edo',
@@ -110,7 +110,7 @@ const billboardSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['led','lightbox','bridge panel','eye catcher','mega board','portrait','rooftop','super48 sheet','ultrawave','unipole','video wall','wall drape'],
+        enum: ['led','lightbox','bridge_panel','eye_catcher','mega_board','portrait','rooftop','super48_sheet','ultrawave','unipole','video_wall','wall_drape'],
         required: true
     },
     unit: {
@@ -124,6 +124,10 @@ const billboardSchema = new mongoose.Schema({
     width_px: {
         type: String,
         required: true
+    },
+    timestamp: {
+        type: Date,
+        default: Date.now
     }
 })
 
