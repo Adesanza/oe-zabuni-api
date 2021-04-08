@@ -54,7 +54,7 @@ const billboardSchema = new mongoose.Schema({
     },
     revenue: {
         type: String,
-        required: true
+        default: ""
     },
     slot: {
         type: String,
