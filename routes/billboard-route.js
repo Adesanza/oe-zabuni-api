@@ -1,6 +1,7 @@
+const router = require("express").Router();
+const BillboardGeneralInfo = require("../models/billboard-general-info-model");
 const Billboard = require("../models/billboard-model");
 
-const router = require("express").Router();
 
 
 
@@ -19,6 +20,12 @@ router
         .post(async(req,res,next) => {
             try {
                 const billboard = await Billboard.create(req.body);
+                if(billboard) {
+                    await BillboardGeneralInfo.findByIdAndUpdate("60771bd79ca2321440e01653",{
+                        $inc: {billboardCount: 1},
+                        billboardLastUpdated: Date.now()
+                    });
+                }
                 return res.json({billboardData: billboard});
             } catch (error) {
                 // console.log(error);
@@ -39,7 +46,12 @@ router
         })   
         .patch(async(req,res,next) => {
             try {
-                const billboard = await Billboard.findByIdAndUpdate(req.params.id,req.body,{runValidators: true, new: true});
+                const billboard = await Billboard.findByIdAndUpdate(req.params.id,{...req.body,timestamp: Date.now()},{runValidators: true, new: true});
+                if(billboard){
+                    await BillboardGeneralInfo.findByIdAndUpdate("60771bd79ca2321440e01653",{
+                        billboardLastUpdated: Date.now()
+                    });
+                }
                 return res.json({billboardData: billboard});
             } catch (error) {
                 // console.log(error);
@@ -49,12 +61,17 @@ router
         .delete(async(req,res,next) => {
             try {
                 const billboard = await Billboard.findByIdAndRemove(req.params.id);
+                if(billboard) {
+                    await BillboardGeneralInfo.findByIdAndUpdate("60771bd79ca2321440e01653",{
+                        $inc: {billboardCount: -1},
+                        billboardLastUpdated: Date.now()
+                    });
+                }
                 return res.json({billboardData: billboard});
             } catch (error) {
                 // console.log(error);
                 next(error);
             }
         })   
-
 
 module.exports = router;

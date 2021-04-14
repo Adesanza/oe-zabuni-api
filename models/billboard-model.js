@@ -110,7 +110,7 @@ const billboardSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['led','lightbox','bridge_panel','eye_catcher','mega_board','portrait','rooftop','super48_sheet','ultrawave','unipole','video_wall','wall_drape'],
+        enum: ['led','lightbox','bridge_panel','eye_catcher','mega_board','portrait','rooftop','super48_sheet','ultrawave','unipole','video_wall','wall_drape','gantry'],
         required: true
     },
     unit: {
