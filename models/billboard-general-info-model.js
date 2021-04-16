@@ -5,7 +5,7 @@ const billboardGeneralInfoSchema = new mongoose.Schema({
         type: Number,
     },
     billboardLastUpdated: {
-        type: Date
+        type: Number
     }
 })
 
