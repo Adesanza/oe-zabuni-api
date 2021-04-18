@@ -1,9 +1,4 @@
 const _ = require('underscore');
-const drive = (count,func) => {
-    for(let i = 0; i < count; i++){
-
-    }
-}
 
 const getBillboardGeneralInfo = (billboardData) => {
     return {
@@ -41,15 +36,8 @@ return billboardClassObject;
 
 const getBillboardTypes = (billboardData) => {
     let billboardTypesObject = {
-        billboardTypes: _.countBy(billboardData, (billboard) => billboard.type)
+        billboardTypes: _.countBy(_.sortBy(billboardData,'type'), (billboard) => billboard.type)
     }
-    // for(let i = 0; i < billboardData.length; i++){
-    //     if(_.has(billboardTypesObject.billboardTypes,billboardData[i].type)){
-    //         ++billboardTypesObject.billboardTypes[billboardData[i].type];
-    //     }else {
-    //         billboardTypesObject.billboardTypes[billboardData[i].type] = 1;
-    //     }
-    // }
     return billboardTypesObject;
 }
 
@@ -57,18 +45,11 @@ const getBillboardRegions = (billboardData) => {
     let billboardRegionsObject = {
         billboardRegions: _.countBy(billboardData, (billboard) => billboard.region)
     }
-    // for(let i = 0; i < billboardData.length; i++){
-    //     if(_.has(billboardRegionsObject.billboardRegions,billboardData[i].region)){
-    //         ++billboardRegionsObject.billboardRegions[billboardData[i].region];
-    //     }else {
-    //         billboardRegionsObject.billboardRegions[billboardData[i].region] = 1;
-    //     }
-    // }
     return billboardRegionsObject;
 }
 
 const getBillboardStateStatus = (billboardData) => {
-    const groupStates = _.groupBy(billboardData,(billboard) => billboard.state);
+    const groupStates = _.groupBy(_.sortBy(billboardData,'state'),(billboard) => billboard.state);
     let billboardStateStatusObject = {
         billboardStatesStatus: []
     }
@@ -79,7 +60,7 @@ const getBillboardStateStatus = (billboardData) => {
             ..._.countBy(groupStates[key], (billboard) => billboard.status === 'active' ? 'active' : billboard.status === 'inactive' ? 'inactive' : 'vacant'),
             types: []
         }
-        let groupTypes = _.groupBy(groupStates[key],(billboard) => billboard.type);
+        let groupTypes = _.groupBy(_.sortBy(groupStates[key],'type'),(billboard) => billboard.type);
         for(let key in groupTypes) {
             billboardStateStatusShape.types.push({
                 type: key,
