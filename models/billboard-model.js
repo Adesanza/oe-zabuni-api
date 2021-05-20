@@ -63,6 +63,10 @@ const billboardSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  image: {
+    type: String,
+    default: '',
+  },
   slot: {
     type: String,
     required: true,
