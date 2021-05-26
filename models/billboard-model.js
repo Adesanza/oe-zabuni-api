@@ -35,6 +35,10 @@ const billboardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+    default: '',
+  },
   lga: {
     type: String,
     required: true,
@@ -60,10 +64,6 @@ const billboardSchema = new mongoose.Schema({
     required: true,
   },
   revenue: {
-    type: String,
-    default: '',
-  },
-  image: {
     type: String,
     default: '',
   },
@@ -119,6 +119,10 @@ const billboardSchema = new mongoose.Schema({
     enum: ['active', 'inactive', 'vacant'],
     required: true,
   },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
   type: {
     type: String,
     enum: [
@@ -149,10 +153,6 @@ const billboardSchema = new mongoose.Schema({
   width_px: {
     type: String,
     required: true,
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now,
   },
 });
 
