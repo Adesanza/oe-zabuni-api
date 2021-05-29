@@ -24,9 +24,11 @@ const app = express();
 // route middlewares
 app.use(cors());
 app.use(express.json());
-app.use('/user', require('./routes/user-route'));
-app.use('/billboard', require('./routes/billboard-route'));
-app.use('/billboard-general', require('./routes/billboard-general-route'));
+app.use('/publisher', require('./routes/publisher-company-route'));
+app.use(
+  '/billboard-general',
+  require('./routes/publisher-billboard-general-route')
+);
 
 // --------------------------
 

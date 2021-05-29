@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const billboardSchema = new mongoose.Schema({
+const publisherBillboardSchema = new mongoose.Schema({
   amount: {
     type: String,
     required: true,
@@ -23,6 +23,13 @@ const billboardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  company_id: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'publisher',
+      required: true,
+    },
+  ],
   face: {
     type: String,
     required: true,
@@ -156,6 +163,9 @@ const billboardSchema = new mongoose.Schema({
   },
 });
 
-const Billboard = mongoose.model('billboard', billboardSchema);
+const PublisherBillboard = mongoose.model(
+  'publisherBillboard',
+  publisherBillboardSchema
+);
 
-module.exports = Billboard;
+module.exports = PublisherBillboard;

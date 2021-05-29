@@ -1,10 +1,12 @@
 const router = require('express').Router();
-const BillboardGeneralInfo = require('../models/billboard-general-info-model');
-const Billboard = require('../models/billboard-model');
+const {
+  PublisherBillboard,
+  PublisherBillboardGeneralInfo,
+} = require('../models/');
 
 router.route('/all').get(async (req, res, next) => {
   try {
-    return res.json({ billboardData: await Billboard.find() });
+    return res.json({ billboardData: await PublisherBillboard.find() });
   } catch (error) {
     // console.log(error);
     next(error);
@@ -12,12 +14,15 @@ router.route('/all').get(async (req, res, next) => {
 });
 router.route('/create').post(async (req, res, next) => {
   try {
-    const billboard = await Billboard.create(req.body);
+    const billboard = await PublisherBillboard.create(req.body);
     if (billboard) {
-      await BillboardGeneralInfo.findByIdAndUpdate('60771bd79ca2321440e01653', {
-        $inc: { billboardCount: 1 },
-        billboardLastUpdated: Date.now(),
-      });
+      await PublisherBillboardGeneralInfo.findByIdAndUpdate(
+        '60771bd79ca2321440e01653',
+        {
+          $inc: { billboardCount: 1 },
+          billboardLastUpdated: Date.now(),
+        }
+      );
     }
     return res.json({ billboardData: billboard });
   } catch (error) {
@@ -30,7 +35,9 @@ router
   .route('/:id')
   .get(async (req, res, next) => {
     try {
-      const billboard = await Billboard.findById(req.params.id);
+      const billboard = await PublisherBillboard.find({
+        company_id: req.params.id,
+      });
       return res.json({ billboardData: billboard });
     } catch (error) {
       // console.log(error);
@@ -39,13 +46,13 @@ router
   })
   .patch(async (req, res, next) => {
     try {
-      const billboard = await Billboard.findByIdAndUpdate(
+      const billboard = await PublisherBillboard.findByIdAndUpdate(
         req.params.id,
         { ...req.body, timestamp: Date.now() },
         { runValidators: true, new: true }
       );
       if (billboard) {
-        await BillboardGeneralInfo.findByIdAndUpdate(
+        await PublisherBillboardGeneralInfo.findByIdAndUpdate(
           '60771bd79ca2321440e01653',
           {
             billboardLastUpdated: Date.now(),
@@ -60,9 +67,11 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const billboard = await Billboard.findByIdAndRemove(req.params.id);
+      const billboard = await PublisherBillboard.findByIdAndRemove(
+        req.params.id
+      );
       if (billboard) {
-        await BillboardGeneralInfo.findByIdAndUpdate(
+        await PublisherBillboardGeneralInfo.findByIdAndUpdate(
           '60771bd79ca2321440e01653',
           {
             $inc: { billboardCount: -1 },

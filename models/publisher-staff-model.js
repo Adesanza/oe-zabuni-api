@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const publisherStaffSchema = new mongoose.Schema({
   first_name: {
     type: String,
     required: true,
@@ -9,10 +9,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  company: {
-    type: String,
-    required: true,
-  },
+  company_id: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'publisher',
+    },
+  ],
   email: {
     type: String,
     required: true,
@@ -23,7 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'marketing', 'technical', 'operations', 'finance'],
+    enum: ['marketing', 'technical', 'operations', 'finance'],
     required: true,
   },
   is_admin: {
@@ -32,6 +34,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-const User = mongoose.model('User', userSchema);
+const PublisherStaff = mongoose.model('publisherStaff', publisherStaffSchema);
 
-module.exports = User;
+module.exports = PublisherStaff;

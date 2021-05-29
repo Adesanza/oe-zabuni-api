@@ -7,6 +7,12 @@ const billboardGeneralInfoSchema = new mongoose.Schema({
   billboardLastUpdated: {
     type: Number,
   },
+  company_id: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'company',
+    },
+  ],
 });
 
 const BillboardGeneralInfo = mongoose.model(
