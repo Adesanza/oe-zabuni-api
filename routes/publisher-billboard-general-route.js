@@ -1,4 +1,4 @@
-const router = require('express').Router();
+const router = require('express').Router({ mergeParams: true });
 const {
   PublisherBillboard,
   PublisherBillboardGeneralInfo,
@@ -7,17 +7,25 @@ const getBillboardGeneralInfo = require('../utils/billboard-utils');
 
 router.route('/').get(async (req, res, next) => {
   try {
-    let billboardData = await PublisherBillboard.find();
-    let billboardGeneralInfo = await PublisherBillboardGeneralInfo.findById(
-      '60771bd79ca2321440e01653'
-    );
-    return res.json({
+    let billboardData = await PublisherBillboard.find({
+      company_id: req.params.publisher_id,
+    });
+    let billboardGeneralInfo = await PublisherBillboardGeneralInfo.findOne({
+      company_id: req.params.publisher_id,
+    });
+    const result = {
       billboard_info: {
         ...getBillboardGeneralInfo(billboardData),
-        billboardCount: billboardGeneralInfo.billboardCount,
-        billboardLastUpdated: billboardGeneralInfo.billboardLastUpdated,
+        billboardCount: billboardGeneralInfo
+          ? billboardGeneralInfo.billboardCount
+          : 0,
+        billboardLastUpdated: billboardGeneralInfo
+          ? billboardGeneralInfo.billboardLastUpdated
+          : null,
       },
-    });
+    };
+    // console.log(result);
+    return res.json(result);
   } catch (error) {
     console.log('err', error);
     next(error);

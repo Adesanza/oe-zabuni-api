@@ -9,12 +9,11 @@ const publisherStaffSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  company_id: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'publisher',
-    },
-  ],
+  company_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'publisher',
+    required: true,
+  },
   email: {
     type: String,
     required: true,

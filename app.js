@@ -25,10 +25,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use('/publisher', require('./routes/publisher-company-route'));
-app.use(
-  '/billboard-general',
-  require('./routes/publisher-billboard-general-route')
-);
 
 // --------------------------
 

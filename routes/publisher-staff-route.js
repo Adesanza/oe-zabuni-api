@@ -1,6 +1,6 @@
 const { PublisherStaff } = require('../models/');
 
-const router = require('express').Router();
+const router = require('express').Router({ mergeParams: true });
 
 router.route('/').get(async (req, res, next) => {
   try {

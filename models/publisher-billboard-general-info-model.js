@@ -1,23 +1,22 @@
 const mongoose = require('mongoose');
 
-const billboardGeneralInfoSchema = new mongoose.Schema({
+const publisherBillboardGeneralInfoSchema = new mongoose.Schema({
   billboardCount: {
     type: Number,
   },
   billboardLastUpdated: {
     type: Number,
   },
-  company_id: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'company',
-    },
-  ],
+  company_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'publisher',
+    required: true,
+  },
 });
 
-const BillboardGeneralInfo = mongoose.model(
-  'billboardGeneralInfo',
-  billboardGeneralInfoSchema
+const PublisherBillboardGeneralInfo = mongoose.model(
+  'publisherBillboardGeneralInfo',
+  publisherBillboardGeneralInfoSchema
 );
 
-module.exports = BillboardGeneralInfo;
+module.exports = PublisherBillboardGeneralInfo;
